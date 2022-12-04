@@ -1,5 +1,6 @@
 import React from 'react'
 
+import './index.css'
 /**
  * GoodItem - компонент карточки товара
  * Пример props: 
@@ -16,16 +17,17 @@ class GoodItem extends React.Component{
     }
     render(){
         const {data} = this.props
-        console.log(data)
         return(
-            <div> 
-                Карточка товара 
-                <h2>
+            <div className='good-card'> 
+                <h2 className='good-card__title'>
                     {data.TITLE}
                 </h2>
-                <img />
-                <p>
-                    {data.TITLE}
+                <img className='good-card__img' src={data.IMG} />
+                <p className='good-card__discr'>
+                    {data.DISCR}
+                </p>
+                <p className='good-card__price'>
+                    {data.PRICE}
                 </p>
             </div>
         )
