@@ -15,11 +15,18 @@ class GoodItem extends React.Component{
         super()
     }
     render(){
-        const {title} = this.props
+        const {data} = this.props
+        console.log(data)
         return(
             <div> 
                 Карточка товара 
-                <h2>{title}</h2>
+                <h2>
+                    {data.TITLE}
+                </h2>
+                <img />
+                <p>
+                    {data.TITLE}
+                </p>
             </div>
         )
     }

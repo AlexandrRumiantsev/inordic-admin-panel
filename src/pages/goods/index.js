@@ -16,7 +16,8 @@ class Goods extends React.Component{
                 {
                     goodsJSON.map(good => {
                         return <GoodItem 
-                            title={good.TITLE}
+                            key={good.ID}
+                            data={good}
                         />
                      })
                 }
