@@ -6,12 +6,16 @@ import goodsJSON from '../../stub/goods.json'
 
 import './index.css'
 
+//Создали реф для получения данных введенные в поле поиска
+const inputSearchRef = React.createRef();
+
 class Goods extends React.Component{
     constructor(){
         super()
 
         this.state = {
-            goods: goodsJSON
+            goods: goodsJSON,
+            filteredGoods: null,
         }
     }
     findGood(event){
@@ -20,11 +24,27 @@ class Goods extends React.Component{
         // Реакт использет обертку для обновления состояния
         // C помощью setState, работает с состоянием в реакте
 
-        //Нужно получить текст из инпута
-        console.log('event', event.currentTarget)
-        this.setState({
-            goods: []
-        })
+        //Получаем введенное в инпет значение, через реф
+        const valueFromSearchInput = inputSearchRef?.current?.value
+        console.log(valueFromSearchInput)
+        //найдем в стейте, то, что мы ввели в поле поиска
+        const searcherElement = this.state.goods.find(good => 
+            good.TITLE == valueFromSearchInput || good.DISCR == valueFromSearchInput
+        )
+        console.log(searcherElement)
+        //Обрабатываем условие, когда инпут пустой
+        // ДЗ - Починить условие, которое возвращает все товары на верстку, при поиске из пустого инпута
+        if(searcherElement == '' || searcherElement == undefined) {
+            this.setState({
+                goods: goodsJSON
+            })
+        }else{
+            //Обновляем состояние компонента
+            this.setState({
+                filteredGoods: [searcherElement]
+            })
+        }
+        
 
         /**
          * ДЗ
@@ -40,22 +60,24 @@ class Goods extends React.Component{
     }
     //Метод который есть у любого компонента в реакте для отображжения шаблона
     render(){
+        //Ищем товары сначало в отфильтрованных, если их там нет, то в обычном блоке
+        const goods = this.state.filteredGoods || this.state.goods
         return (
             <div>
                 <h1>Ассортимент</h1>
                     <div>
                         ПОИСК
-                        <input type='text'/> 
-                        <input type='submit' onClick={(event) => {this.findGood(event)}}/>
+                        <input ref={inputSearchRef} type='text'/> 
+                        <input type='submit' onClick={(event) => {this.findGood(event)}} value='Найти'/>
                     </div>
                     <div className='card-list'>
-                    {
-                        this.state.goods.map(good => {
-                            return <GoodItem 
+                    {      
+                        goods.map(good => 
+                            <GoodItem 
                                 key={good.ID}
                                 data={good}
                             />
-                        })
+                        )
                     }
                     </div>
             </div>
