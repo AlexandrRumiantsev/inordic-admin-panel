@@ -33,6 +33,7 @@ class Goods extends React.Component{
          * - использовать реф
          * - использовать форму
          * ПОДСКАЗКА - посмотреть, как мы получали данные с формы во VUE
+         * https://reactjs.org/docs/refs-and-the-dom.html
          */
 
 

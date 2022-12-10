@@ -6,18 +6,26 @@ import {
 import Main from '../../pages/main'
 import Goods from '../../pages/goods'
 
+//Импортируем созданный нами лайаут
+import MainLayout from '../../components/main-layout'
+
 //Описываем роутинг в приложении
 // path - это путь в браузерной строке
 // element - это тот компонент, который будет по указанному выше пути отобрадаться 
 const Router = createBrowserRouter(
     [
         {
-            path: '/',
-            element: <Main />,
-        },
-        {
-            path: '/goods',
-            element: <Goods />,
+            element: <MainLayout />,
+            children: [
+                {
+                    path: '/',
+                    element: <Main />,
+                },
+                {
+                    path: '/goods',
+                    element: <Goods />,
+                }
+            ]
         }
     ]
 )

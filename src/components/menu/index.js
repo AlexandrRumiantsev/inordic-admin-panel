@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 //TODO доработать
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import './index.css';
 
@@ -29,9 +29,9 @@ class Menu extends React.Component{
                     {
                         menu.map((menuItem, index) => (
                                 <li key={index} >
-                                    <a className='menu__link' href={menuItem.link}>
+                                    <Link className='menu__link' to={menuItem.link}>
                                         {menuItem.text}
-                                    </a>
+                                    </Link>
                                 </li>
                             )
                         )
