@@ -1,7 +1,6 @@
 //Импортируем реакт
 import React from 'react'
 import PropTypes from 'prop-types';
-//TODO доработать
 import { Link } from "react-router-dom";
 
 import './index.css';

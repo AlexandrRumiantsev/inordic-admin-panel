@@ -9,9 +9,16 @@ import Goods from '../../pages/goods'
 //Импортируем созданный нами лайаут
 import MainLayout from '../../components/main-layout'
 
-//Описываем роутинг в приложении
-// path - это путь в браузерной строке
-// element - это тот компонент, который будет по указанному выше пути отобрадаться 
+import GoodList from '../../components/good-list'
+import GoodDetail from '../../components/good-detail'
+
+
+/**
+ * Router - утилс который опредяет маршруты приложения
+ * Маршруты:
+ * Основной - '/': Отображается компонент Main (Основная страница)
+ * Товары - '/goods': Отображается компонент Goods (товары)
+ */
 const Router = createBrowserRouter(
     [
         {
@@ -24,6 +31,16 @@ const Router = createBrowserRouter(
                 {
                     path: '/goods',
                     element: <Goods />,
+                    children: [
+                        {
+                            index: true,
+                            element: <GoodList />
+                        },
+                        {
+                            path: '/goods/:id',
+                            element: <GoodDetail />
+                        }
+                    ]
                 }
             ]
         }

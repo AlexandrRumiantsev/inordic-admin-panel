@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 import './index.css'
 /**
@@ -18,18 +19,20 @@ class GoodItem extends React.Component{
     render(){
         const {data} = this.props
         return(
-            <div className='good-card'> 
-                <h2 className='good-card__title'>
-                    {data.TITLE}
-                </h2>
-                <img className='good-card__img' src={data.IMG} />
-                <p className='good-card__discr'>
-                    {data.DISCR}
-                </p>
-                <p className='good-card__price'>
-                    {data.PRICE}
-                </p>
-            </div>
+            <Link to={`/goods/${data.ID}`}>
+                <div className='good-card'> 
+                    <h2 className='good-card__title'>
+                        {data.TITLE}
+                    </h2>
+                    <img className='good-card__img' src={data.IMG} />
+                    <p className='good-card__discr'>
+                        {data.DISCR}
+                    </p>
+                    <p className='good-card__price'>
+                        {data.PRICE}
+                    </p>
+                </div>
+            </Link>
         )
     }
 }
