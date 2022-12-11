@@ -19,11 +19,6 @@ class GoodList extends React.Component{
         }
     }
     findGood(event){
-        //Так состояния в реакте не обновляются
-        //this.state.goods = [] 
-        // Реакт использет обертку для обновления состояния
-        // C помощью setState, работает с состоянием в реакте
-
         //Получаем введенное в инпет значение, через реф
         const valueFromSearchInput = inputSearchRef?.current?.value
         console.log(valueFromSearchInput)
@@ -31,9 +26,6 @@ class GoodList extends React.Component{
         const searcherElement = this.state.goods.find(good => 
             good.TITLE == valueFromSearchInput || good.DISCR == valueFromSearchInput
         )
-        console.log(searcherElement)
-        //Обрабатываем условие, когда инпут пустой
-        // ДЗ - Починить условие, которое возвращает все товары на верстку, при поиске из пустого инпута
         if(searcherElement == '' || searcherElement == undefined) {
             this.setState({
                 goods: goodsJSON
@@ -44,19 +36,20 @@ class GoodList extends React.Component{
                 filteredGoods: [searcherElement]
             })
         }
-        
 
-        /**
-         * ДЗ
-         * Получить текст из инпута в этом методе
-         * Есть 2 варианта
-         * - использовать реф
-         * - использовать форму
-         * ПОДСКАЗКА - посмотреть, как мы получали данные с формы во VUE
-         * https://reactjs.org/docs/refs-and-the-dom.html
-         */
+    }
+    delGood(id, context){
+        console.log(`Удаляем товар ${id}`)
+        console.log(`context`, context)
+        const goods = context.state.filteredGoods || context.state.goods
+        const newFilteredGoods = goods.filter((good) =>
+            good.ID !== id
+        )
 
-
+        context.setState({
+            goods: newFilteredGoods,
+            filteredGoods: newFilteredGoods
+        })
     }
     render(){
         //Ищем товары сначало в отфильтрованных, если их там нет, то в обычном блоке
@@ -74,6 +67,8 @@ class GoodList extends React.Component{
                         <GoodItem 
                             key={good.ID}
                             data={good}
+                            delGood={this.delGood}
+                            goodListContext={this}
                         />
                     )
                 }

@@ -17,22 +17,28 @@ class GoodItem extends React.Component{
         super()
     }
     render(){
-        const {data} = this.props
+        const {data, delGood, goodListContext} = this.props
         return(
-            <Link to={`/goods/${data.ID}`}>
-                <div className='good-card'> 
-                    <h2 className='good-card__title'>
-                        {data.TITLE}
-                    </h2>
-                    <img className='good-card__img' src={data.IMG} />
-                    <p className='good-card__discr'>
-                        {data.DISCR}
-                    </p>
-                    <p className='good-card__price'>
-                        {data.PRICE}
-                    </p>
+            <div className='good-card'> 
+                <h2 className='good-card__title'>
+                    {data.TITLE}
+                </h2>
+                <img className='good-card__img' src={data.IMG} />
+                <p className='good-card__discr'>
+                    {data.DISCR}
+                </p>
+                <p className='good-card__price'>
+                    {data.PRICE}
+                </p>
+                <div className='good-card__button-block'>
+                    <button onClick={ () => {delGood(data.ID, goodListContext)} } className='good-card__del-button link'>
+                        Удалить
+                    </button>
+                    <Link to={`/goods/${data.ID}`} className='link'>
+                        Редактировать
+                    </Link>
                 </div>
-            </Link>
+            </div>
         )
     }
 }
