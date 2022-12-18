@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactDOM from 'react-dom';
 
 import './index.css'
@@ -145,5 +145,78 @@ const inputSearchRef = React.createRef();
 export default GoodList*/
 
 export function GoodList(){
-    return <>GoodList</>
+    // useState - хук для подключения состояний к функциональному компоненту
+    // goods - значение в состоянии
+    // setGoods - функция, которая позволяет это состояние поменять
+    // useState([]) - задействуем хук и устанавливаем по умолчанию состояни пустого массива
+    const [goods, setGoods] =  useState([])
+    const [filteredGoods, setFilteredGoods] =  useState(null)
+    //хук для лоадера загрузки
+    const [isLoading, setIsLoading] =  useState(true)
+
+    
+    //Работа с useEffect - хук для работы с состояниями и побочными эффектами 
+    // 2 параметра
+    // 1 параметр алгоритм, внутри хука
+    // 2 список зависимостей, на которые реагирует useEffect
+    useEffect(() => {
+        console.log('GoodList загрузился')
+        setTimeout(() => {
+            /*
+            Было:
+            this.setState({
+                goods: goodsJSON,
+                isLoading: false
+            })
+            */
+            //Стало
+            setGoods(goodsJSON)
+            setIsLoading(false)
+        }, 1000);
+    }, [])
+
+    const findGood = (event) => {
+        //Получаем введенное в инпет значение, через реф
+        const valueFromSearchInput = inputSearchRef?.current?.value
+        //найдем в стейте, то, что мы ввели в поле поиска
+        const searcherElement = goods.find(good => 
+            good.TITLE == valueFromSearchInput || good.DISCR == valueFromSearchInput
+        )
+        if(searcherElement == '' || searcherElement == undefined) {
+            setGoods(goodsJSON)
+        }else{
+            //Обновляем состояние компонент
+            setFilteredGoods([searcherElement])
+        }
+
+    }
+
+     //Вывод лоадера, во время загрузки компонента
+    if(isLoading){
+        return <Loader />
+    }
+
+    const currentGoods = filteredGoods || goods
+
+    return(
+        <React.Fragment>
+            <div>
+                ПОИСК
+                <input ref={inputSearchRef} type='text'/> 
+                <input type='submit' onClick={(event) => findGood(event)} value='Найти'/>
+            </div>
+            <div className='card-list'>
+            {      
+                currentGoods.map(good => 
+                    <GoodItem 
+                        key={good.ID}
+                        data={good}
+                       // delGood={/*this.delGood*/}
+                        goodListContext={this}
+                    />
+                )
+            }
+            </div>
+        </React.Fragment>
+    )
 }
