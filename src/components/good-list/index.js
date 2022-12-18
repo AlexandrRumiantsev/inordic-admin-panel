@@ -153,12 +153,14 @@ export function GoodList(){
     const [filteredGoods, setFilteredGoods] =  useState(null)
     //хук для лоадера загрузки
     const [isLoading, setIsLoading] =  useState(true)
-
+    //Сосстояния выбранных товаров 
+    const [currentCount, setCurrentCount] =  useState([])
     
     //Работа с useEffect - хук для работы с состояниями и побочными эффектами 
     // 2 параметра
     // 1 параметр алгоритм, внутри хука
     // 2 список зависимостей, на которые реагирует useEffect
+    console.log(currentCount)
     useEffect(() => {
         console.log('GoodList загрузился')
         setTimeout(() => {
@@ -176,6 +178,7 @@ export function GoodList(){
     }, [])
 
     const findGood = (event) => {
+        //ДЗ сделать поиск в реальном времени
         //Получаем введенное в инпет значение, через реф
         const valueFromSearchInput = inputSearchRef?.current?.value
         //найдем в стейте, то, что мы ввели в поле поиска
@@ -191,6 +194,23 @@ export function GoodList(){
 
     }
 
+    const delGood = (id) => {
+        //ДЗ Рефакторинг метода delGood
+        const newGoods = goods.filter((good) =>
+            good.ID !== id
+        )
+        setGoods(newGoods)
+
+        const newFilteredGoods = filteredGoods.filter((good) =>
+            good.ID !== id
+        )
+        setFilteredGoods(newFilteredGoods)
+    }
+
+    const delCurrentGood = () => {
+        console.log('delCurrentGood')
+    }
+
      //Вывод лоадера, во время загрузки компонента
     if(isLoading){
         return <Loader />
@@ -204,6 +224,9 @@ export function GoodList(){
                 ПОИСК
                 <input ref={inputSearchRef} type='text'/> 
                 <input type='submit' onClick={(event) => findGood(event)} value='Найти'/>
+                <button onClick={(event) => delCurrentGood(event)}>
+                    Удалить {currentCount.length} товаров
+                </button>
             </div>
             <div className='card-list'>
             {      
@@ -211,8 +234,9 @@ export function GoodList(){
                     <GoodItem 
                         key={good.ID}
                         data={good}
-                       // delGood={/*this.delGood*/}
-                        goodListContext={this}
+                        delGood={delGood}
+                        currentCount={currentCount}
+                        setCurrentCount={setCurrentCount}
                     />
                 )
             }
