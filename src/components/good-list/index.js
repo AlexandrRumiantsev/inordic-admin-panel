@@ -9,10 +9,13 @@ import goodsJSON from '../../stub/goods.json'
 //Создали реф для получения данных введенные в поле поиска
 const inputSearchRef = React.createRef();
 
+
+
+
 /**
  * GoodList - компонентсписка карточек товаров
  */
-class GoodList extends React.Component{
+/* class GoodList extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -97,11 +100,11 @@ class GoodList extends React.Component{
         console.log("componentDidUpdate срабатывает перед обновлением компонента")
     }
     //Хук для переххвата ошибок, не работает с новым роутером
-    /*componentDidCatch(error, errorInfo) {
+    componentDidCatch(error, errorInfo) {
         console.log('componentDidCatch')
         console.log('error', error)
         console.log('errorInfo', errorInfo)
-    }*/
+    }
     render(){
         //Ищем товары сначало в отфильтрованных, если их там нет, то в обычном блоке
         const goods = this.state.filteredGoods || this.state.goods
@@ -139,4 +142,8 @@ class GoodList extends React.Component{
     }
 }
 
-export default GoodList
+export default GoodList*/
+
+export function GoodList(){
+    return <>GoodList</>
+}

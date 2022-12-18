@@ -9,7 +9,7 @@ import Goods from '../../pages/goods'
 //Импортируем созданный нами лайаут
 import MainLayout from '../../components/main-layout'
 
-import GoodList from '../../components/good-list'
+import {GoodList} from '../../components/good-list'
 import GoodDetail from '../../components/good-detail'
 
 
