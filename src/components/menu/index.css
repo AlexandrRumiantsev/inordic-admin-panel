@@ -1,9 +1,12 @@
 .menu{
-    position: absolute;
+    top: 0;
     width: 15%;
     text-align: left;
     border-right: 1px solid black;
     height: 100vh;
+    background-color: #2a284f;
+    color: #fdc931;
+    position: fixed;
 }
 .menu__content{
     margin: 50px 0 0 50px;
@@ -13,9 +16,19 @@
     margin: 0;
     padding: 0;
 }
-.menu__title{
-
+.menu li{
+    padding: 10px 0px;
+}
+.logo-full {
+    position: fixed;
+    bottom: 0;
+    padding: 30px 50px;
+    background: url(https://study.inordic.ru/images/icons/logo.svg) center center / contain no-repeat;
+    bottom: 5px;
+    right: 5px;
 }
 .menu__link{
-
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
 }

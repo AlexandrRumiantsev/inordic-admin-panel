@@ -14,135 +14,7 @@ const inputSearchRef = React.createRef();
 
 /**
  * GoodList - компонентсписка карточек товаров
- */
-/* class GoodList extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            goods: [],
-            filteredGoods: null,
-            isLoading: true,
-        }
-
-        // Метод bind жестко закрепляет контекст внутри метода, который мы в bind передаем
-        // Жестко закрепили контекст в методе
-        // this.delGood = this.delGood.bind(this);
-    }
-    findGood(event){
-        //Получаем введенное в инпет значение, через реф
-        const valueFromSearchInput = inputSearchRef?.current?.value
-        console.log(valueFromSearchInput)
-        //найдем в стейте, то, что мы ввели в поле поиска
-        const searcherElement = this.state.goods.find(good => 
-            good.TITLE == valueFromSearchInput || good.DISCR == valueFromSearchInput
-        )
-        if(searcherElement == '' || searcherElement == undefined) {
-            this.setState({
-                goods: goodsJSON
-            })
-        }else{
-            //Обновляем состояние компонента
-            this.setState({
-                filteredGoods: [searcherElement]
-            })
-        }
-
-    }
-    //Превратив метод в стрелочную функцию, мы смогли сохранить контекст, даже пробросивм метод в другой компонент
-    delGood = (id, context) => {
-
-        console.log(`Удаляем товар ${id}`)
-        console.log(`context`, context)
-        console.log(`this`, this)
-        console.log(`hello`, hello)
-
-        const goods = this.state.filteredGoods || this.state.goods
-        const newFilteredGoods = goods.filter((good) =>
-            good.ID !== id
-        )
-
-        this.setState({
-            goods: newFilteredGoods,
-            filteredGoods: newFilteredGoods
-        })
-    }
-
-    _delComponent(){
-        console.log('Удаляем компонент GoodList')
-        //Приверить актуальное удаление товаров
-        ReactDOM.unmount(
-            document.getElementById("root")
-        ) 
-    }
-    // Является устаревший, но до сих пор есть в классовых компонентах реакта
-    componentWillMount() {
-        console.log("componentWillMount метод работающий до этапа монтирования")
-    }
-    componentDidMount() {
-        console.log("componentDidMount метод работающий после  этапа монтирования")
-        // тут мы будем запрашивать данные из АПИ и записывать в состояние
-        //Метод для реализации ожидания, перед отработкой алгоритма
-        //https://learn.javascript.ru/settimeout-setinterval
-        //Эмитация загрузки
-        // ДЗ - сделать отдельный(красивый), компонент для загрузки
-        setTimeout(() => {
-            this.setState({
-                goods: goodsJSON,
-                isLoading: false
-            })
-        }, 1000);
-    }
-    // Устаревший
-    componentWillUpdate() {
-        console.log("componentWillUpdat срабатывает после обновлении компонента")
-    }
-    componentDidUpdate() {
-        console.log("componentDidUpdate срабатывает перед обновлением компонента")
-    }
-    //Хук для переххвата ошибок, не работает с новым роутером
-    componentDidCatch(error, errorInfo) {
-        console.log('componentDidCatch')
-        console.log('error', error)
-        console.log('errorInfo', errorInfo)
-    }
-    render(){
-        //Ищем товары сначало в отфильтрованных, если их там нет, то в обычном блоке
-        const goods = this.state.filteredGoods || this.state.goods
-        if (!goods) {
-            throw new Error('Не удалось, получить товары от сервера');
-        }
-
-        //Вывод лоадера, во время загрузки компонента
-        if(this.state.isLoading){
-            return <Loader />
-        }
-
-        return(
-            <React.Fragment>
-                <div>
-                    ПОИСК
-                    <input ref={inputSearchRef} type='text'/> 
-                    <input type='submit' onClick={(event) => {this.findGood(event)}} value='Найти'/>
-                    <button onClick={this._delComponent.bind(this)} >Удалить компонент GoodList</button>
-                </div>
-                <div className='card-list'>
-                {      
-                    goods.map(good => 
-                        <GoodItem 
-                            key={good.ID}
-                            data={good}
-                            delGood={this.delGood}
-                            goodListContext={this}
-                        />
-                    )
-                }
-                </div>
-            </React.Fragment>
-        )
-    }
-}
-
-export default GoodList*/
+*/
 
 export function GoodList(){
     // useState - хук для подключения состояний к функциональному компоненту
@@ -220,10 +92,9 @@ export function GoodList(){
 
     return(
         <React.Fragment>
-            <div>
-                ПОИСК
-                <input ref={inputSearchRef} type='text'/> 
-                <input type='submit' onClick={(event) => findGood(event)} value='Найти'/>
+            <div className='panel-button'>
+                <input ref={inputSearchRef} placeholder='Введите название товара' type='text'/> 
+                <input type='submit' onClick={(event) => findGood(event)} value='Поиск'/>
                 <button onClick={(event) => delCurrentGood(event)}>
                     Удалить {currentCount.length} товаров
                 </button>
