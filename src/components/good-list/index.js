@@ -36,7 +36,7 @@ export function GoodList(){
         console.log('GoodList загрузился')
         setTimeout(() => {
             //Получаем goods, который записали в GoodDetail
-            const goodsFromDetail = location.state.goods
+            const goodsFromDetail = location?.state?.goods
             if(goodsFromDetail){
                 setGoods(goodsFromDetail)
             }else {
