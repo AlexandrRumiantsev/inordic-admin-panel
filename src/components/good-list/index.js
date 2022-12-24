@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import ReactDOM from 'react-dom';
+import { useLocation } from "react-router-dom";
 
 import './index.css'
 import GoodItem from '../good-item'
@@ -8,8 +8,6 @@ import {Loader} from '../loader'
 import goodsJSON from '../../stub/goods.json'
 //Создали реф для получения данных введенные в поле поиска
 const inputSearchRef = React.createRef();
-
-
 
 
 /**
@@ -27,24 +25,24 @@ export function GoodList(){
     const [isLoading, setIsLoading] =  useState(true)
     //Сосстояния выбранных товаров 
     const [currentCount, setCurrentCount] =  useState([])
+    //Получаем данные, которые передаются в роут с помощью useLocation
+    const location = useLocation();
     
     //Работа с useEffect - хук для работы с состояниями и побочными эффектами 
     // 2 параметра
     // 1 параметр алгоритм, внутри хука
     // 2 список зависимостей, на которые реагирует useEffect
-    console.log(currentCount)
     useEffect(() => {
         console.log('GoodList загрузился')
         setTimeout(() => {
-            /*
-            Было:
-            this.setState({
-                goods: goodsJSON,
-                isLoading: false
-            })
-            */
-            //Стало
-            setGoods(goodsJSON)
+            //Получаем goods, который записали в GoodDetail
+            const goodsFromDetail = location.state.goods
+            if(goodsFromDetail){
+                setGoods(goodsFromDetail)
+            }else {
+                setGoods(goodsJSON)
+            }
+           
             setIsLoading(false)
         }, 1000);
     }, [])

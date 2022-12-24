@@ -22,16 +22,11 @@ class GoodItem extends React.Component{
         }
     }
 
-    setCurrent(operation){
-        //Логика которая происходит на интерфейсе
-         //Логика, котрая происходит с данными
+    setCurrent(event){
 
         const {currentCount, setCurrentCount, data} = this.props
-        console.log('currentCount', currentCount)
-        console.log('setCurrentCount', setCurrentCount)
-        console.log('setCurrentCount', data)
         
-        if(operation == '+'){
+        if(event.target.checked ){
             this.setState({
                 curentForDel: true
             })
@@ -40,12 +35,17 @@ class GoodItem extends React.Component{
             setCurrentCount(
                 [...currentCount]
             )
-            console.log('currentCount обновленный', currentCount)
-
         }else{
             this.setState({
                 curentForDel: false
             })
+            //Получаем идентификатор, товара, который хотим удалить
+            const currentDelGood = data.ID
+            //Найдем в исходном массиве, элемент, который хотиv удалить и берем его из массива
+            const newListGoods = currentCount.filter(el => el.ID !== currentDelGood)
+            setCurrentCount(
+                newListGoods
+            )
         }
     }
 
@@ -73,12 +73,7 @@ class GoodItem extends React.Component{
                     </Link>
                 </div>
                 <div className='good-card__del-block'>
-                    <button onClick={() => this.setCurrent('+')}>
-                        + 
-                    </button>
-                    <button onClick={() => this.setCurrent('-')}>
-                        - 
-                    </button>
+                    <input type='checkbox' onClick={(event) => this.setCurrent(event)}/>
                 </div>
             </div>
         )
