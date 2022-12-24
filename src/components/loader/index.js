@@ -7,7 +7,7 @@ import './index.css'
  */
 export function Loader(){
     return(
-        <div class='overlay'>
+        <div className='overlay'>
             <img src='https://study.inordic.ru/images/icons/logo.svg' />
         </div>
     )

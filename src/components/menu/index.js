@@ -20,7 +20,7 @@ class Menu extends React.Component{
         //2) выводить тэе <a> с названием и ссылкой
         return (
             <div className='menu'>
-                <a class="logo-full" href="/"></a>
+                <a className="logo-full" href="/"></a>
                 <div className='menu__content'>
                     <h1 className='menu__title'>
                         Меню
