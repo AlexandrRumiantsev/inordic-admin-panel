@@ -10,7 +10,7 @@ import Goods from '../../pages/goods'
 import MainLayout from '../../components/main-layout'
 
 import {GoodList} from '../../components/good-list'
-import GoodDetail from '../../components/good-detail'
+import {GoodDetail} from '../../components/good-detail'
 
 
 /**

@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {useParams, useNavigate} from 'react-router-dom'
+
+import {Loader} from '../loader'
 
 import './index.css'
 
@@ -7,10 +10,13 @@ import goodsJSON from '../../stub/goods.json'
 const formSaveRef = React.createRef();
 
 
+
 //TODO Переделаем компонент на функциональный
 /**
  * GoodList - Отдельная стараница с инормацией о товаре и возможностью ее редактировать
  */
+
+/*
 class GoodDetailt extends React.Component{
     constructor(){
         super()
@@ -75,3 +81,51 @@ class GoodDetailt extends React.Component{
 }
 
 export default GoodDetailt
+*/
+
+export function GoodDetail(){
+    
+    //Записываем состояния компонента
+    const [good, setGood] = useState(null)
+    const [goods, setGoods] = useState(goodsJSON)
+
+    //Задействуем новые хуки useParams и useNavigate
+    // Получаем параметр id, который описан в роуте 
+    const {id} = useParams()
+    //.....
+    const navigate = useNavigate();
+
+    // Хук useEffect, необходим нам для установки базовых значений, если нам необходимо, 
+    // чтобы он сработал только один раз при отрисовке компонента,
+    // 2 параметром, указываем пустой массив зависемойтей 
+    useEffect(() => {
+            // найти данные о конкретном товаре по id
+            const good = goods.find(good => good.ID == id)
+            // Устанавливаем найденный объект, как состояние good
+            // Когда появится запрос к серверу, костыль setTimeout, можно будет убрать
+            setTimeout(() => {
+                setGood(good)
+            }, 1000)
+    }, [])
+
+    if(!good){
+        return <Loader />
+    }
+
+    return(
+        <>
+            <h1>{good.TITLE}</h1>
+            <img className='detail-img' src={good.IMG}/>
+            <form ref={formSaveRef} encType="multipart/form-data">
+                <p>Название товара: <input type='text' name='TITLE' defaultValue={good.TITLE}/></p>
+                <p>Описание товара: <input type='text' name='DISCR' defaultValue={good.DISCR}/></p>
+                <p>Цена товара: <input type='text' name='PRICE' defaultValue={good.PRICE}/></p>
+                <p>Количество товара: <input type='text' defaultValue={good.PRICE}/></p>
+                <p>Изображение товара: <input type='file' name="IMG"/></p>
+                <p><input type='submit' onClick={(event) => this.saveGood(event)} value='Сохранить'/></p>
+            </form>
+        </>
+    )
+    
+
+}
