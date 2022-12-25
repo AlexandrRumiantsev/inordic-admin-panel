@@ -16,18 +16,15 @@ const formSaveRef = React.createRef();
  */
 
 export function GoodDetail(){
-
     const location = useLocation();
     //Записываем состояния компонента
     const [good, setGood] = useState(null)
     const [goods, setGoods] = useState(goodsJSON)
-
     //Задействуем новые хуки useParams и useNavigate
     // Получаем параметр id, который описан в роуте 
     const {id} = useParams()
     //.....
     const navigate = useNavigate();
-
     // Хук useEffect, необходим нам для установки базовых значений, если нам необходимо, 
     // чтобы он сработал только один раз при отрисовке компонента,
     // 2 параметром, указываем пустой массив зависемойтей 
@@ -44,7 +41,6 @@ export function GoodDetail(){
     }, [])
 
     //Методы компонента
-
     const saveGood = (event) => {
         console.log('Метод сохранения новых данных о товаре')
         event.preventDefault()
@@ -81,14 +77,8 @@ export function GoodDetail(){
                 });
             }
         })
-                                    
-
-
-
         //Отправляем форм дату на сервер
-
     }
-
 
     if(!good){
         return <Loader />
