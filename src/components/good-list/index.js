@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import './index.css'
 import GoodItem from '../good-item'
-import {Loader} from '../loader'
+import { Loader } from '../loader'
 
 import goodsJSON from '../../stub/goods.json'
 //Создали реф для получения данных введенные в поле поиска
@@ -27,6 +27,7 @@ export function GoodList(){
     const [selected, setSelected] =  useState([])
     //Получаем данные, которые передаются в роут с помощью useLocation
     const location = useLocation();
+    const navigate = useNavigate()
     
     //Работа с useEffect - хук для работы с состояниями и побочными эффектами 
     // 2 параметра
@@ -34,15 +35,14 @@ export function GoodList(){
     // 2 список зависимостей, на которые реагирует useEffect
     useEffect(() => {
         console.log('GoodList загрузился')
+        //Получаем goods, который записали в GoodDetail
+        const goodsFromDetail = location?.state?.goods
+        if(goodsFromDetail){
+            setGoods(goodsFromDetail)
+        }else {
+            setGoods(goodsJSON)
+        }
         setTimeout(() => {
-            //Получаем goods, который записали в GoodDetail
-            const goodsFromDetail = location?.state?.goods
-            if(goodsFromDetail){
-                setGoods(goodsFromDetail)
-            }else {
-                setGoods(goodsJSON)
-            }
-           
             setIsLoading(false)
         }, 1000);
     }, [])
@@ -117,6 +117,9 @@ export function GoodList(){
                 <input type='submit' onClick={(event) => findGood(event)} value='Поиск'/>
                 <button onClick={(event) => delCurrentGood(event)}>
                     Удалить {selected.length} товаров
+                </button>
+                <button onClick={ () => navigate('/goods/add')}>
+                    Добавить товар
                 </button>
             </div>
             <div className='card-list'>

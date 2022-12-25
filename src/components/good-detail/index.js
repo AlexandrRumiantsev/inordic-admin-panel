@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate, useLocation} from 'react-router-dom'
 
 import {Loader} from '../loader'
 
@@ -10,12 +10,14 @@ import goodsJSON from '../../stub/goods.json'
 const formSaveRef = React.createRef();
 
 
+
 /**
  *  Поправить баг с удалением товара, при его выделении
  */
 
 export function GoodDetail(){
-    
+
+    const location = useLocation();
     //Записываем состояния компонента
     const [good, setGood] = useState(null)
     const [goods, setGoods] = useState(goodsJSON)
@@ -30,8 +32,10 @@ export function GoodDetail(){
     // чтобы он сработал только один раз при отрисовке компонента,
     // 2 параметром, указываем пустой массив зависемойтей 
     useEffect(() => {
-            // найти данные о конкретном товаре по id
-            const good = goods.find(good => good.ID == id)
+            // Забираем данные из хранилища роутера
+            const goodsFromDetail = location?.state?.goods
+            const findId = goodsFromDetail || goods
+            const good = findId.find(good => good.ID == id)
             // Устанавливаем найденный объект, как состояние good
             // Когда появится запрос к серверу, костыль setTimeout, можно будет убрать
             setTimeout(() => {

@@ -5,13 +5,13 @@ import {
 //Импортируем страницы приложения для дальнейшего отображения на определенных маршрутах
 import Main from '../../pages/main'
 import Goods from '../../pages/goods'
+import {Add as AddGood} from '../../pages/goods/add'
 
 //Импортируем созданный нами лайаут
 import MainLayout from '../../components/main-layout'
 
 import {GoodList} from '../../components/good-list'
 import {GoodDetail} from '../../components/good-detail'
-
 
 /**
  * Router - утилс который опредяет маршруты приложения
@@ -39,6 +39,10 @@ const Router = createBrowserRouter(
                         {
                             path: '/goods/:id',
                             element: <GoodDetail />
+                        },
+                        {
+                            path: '/goods/add',
+                            element: <AddGood />
                         }
                     ]
                 }
