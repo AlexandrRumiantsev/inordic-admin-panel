@@ -24,16 +24,16 @@ class GoodItem extends React.Component{
 
     setCurrent(event){
 
-        const {currentCount, setCurrentCount, data} = this.props
+        const {selected, setSelected, data} = this.props
         
         if(event.target.checked ){
             this.setState({
                 curentForDel: true
             })
-            currentCount.push(data)
-            //Копирование объектов на 43 занятии
-            setCurrentCount(
-                [...currentCount]
+            selected.push(data)
+            //setSelected объектов на 43 занятии
+            setSelected(
+                [...selected]
             )
         }else{
             this.setState({
@@ -42,8 +42,8 @@ class GoodItem extends React.Component{
             //Получаем идентификатор, товара, который хотим удалить
             const currentDelGood = data.ID
             //Найдем в исходном массиве, элемент, который хотиv удалить и берем его из массива
-            const newListGoods = currentCount.filter(el => el.ID !== currentDelGood)
-            setCurrentCount(
+            const newListGoods = selected.filter(el => el.ID !== currentDelGood)
+            setSelected(
                 newListGoods
             )
         }

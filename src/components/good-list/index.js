@@ -24,7 +24,7 @@ export function GoodList(){
     //хук для лоадера загрузки
     const [isLoading, setIsLoading] =  useState(true)
     //Сосстояния выбранных товаров 
-    const [currentCount, setCurrentCount] =  useState([])
+    const [selected, setSelected] =  useState([])
     //Получаем данные, которые передаются в роут с помощью useLocation
     const location = useLocation();
     
@@ -78,7 +78,29 @@ export function GoodList(){
     }
 
     const delCurrentGood = () => {
-        console.log('delCurrentGood')
+        //Алгоритм удаления товаров
+        //Алгоритм нужен, чтобы из основного массива, удалить значения, которые есть во втором массиве
+
+        // Шаг 1 - Выбор значений, либо из отфильтрованного массива с товарами, либо из обычного 
+        const currentGoods = filteredGoods || goods
+
+        // Шаг 2 - Перебираем все текущие товары в обратном порядке
+        for( let i = currentGoods.length - 1; i>=0; i--){
+            // Шаг 3 - Массив, в котором, содержаться товары на удаление, его мы так же перебираем
+            for( let j = 0; j < selected.length; j++){
+                // Шаг 4 - Условия, 
+                // - если нашелся элемент в масссиве выбранных на удаление товаров но по индексу, который участвует в цикле перебирания основных товаром
+                // - если идентификатор тоара по индексу 2 цикла, подставленный в массив основных товаров равен индексу подставленному в массив удаляемых товаров
+                if(currentGoods[i] && (currentGoods[i].ID === selected[j].ID)){
+                    //Шаг 4 - Удаляем из основного массива, значение по индексу, который получаем из верхнего циксла
+                    currentGoods.splice(i, 1);
+               }
+           }
+        }
+        
+        setSelected([])
+        setGoods([...currentGoods])
+
     }
 
      //Вывод лоадера, во время загрузки компонента
@@ -94,7 +116,7 @@ export function GoodList(){
                 <input ref={inputSearchRef} placeholder='Введите название товара' type='text'/> 
                 <input type='submit' onClick={(event) => findGood(event)} value='Поиск'/>
                 <button onClick={(event) => delCurrentGood(event)}>
-                    Удалить {currentCount.length} товаров
+                    Удалить {selected.length} товаров
                 </button>
             </div>
             <div className='card-list'>
@@ -104,8 +126,8 @@ export function GoodList(){
                         key={good.ID}
                         data={good}
                         delGood={delGood}
-                        currentCount={currentCount}
-                        setCurrentCount={setCurrentCount}
+                        selected={selected}
+                        setSelected={setSelected}
                     />
                 )
             }
