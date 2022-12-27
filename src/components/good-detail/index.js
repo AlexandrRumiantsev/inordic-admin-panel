@@ -30,9 +30,7 @@ export function GoodDetail(){
     // 2 параметром, указываем пустой массив зависемойтей 
     useEffect(() => {
             // Забираем данные из хранилища роутера
-            const goodsFromDetail = location?.state?.goods
-            const findId = goodsFromDetail || goods
-            const good = findId.find(good => good.ID == id)
+            const good = goods.find(good => good.ID == id)
             // Устанавливаем найденный объект, как состояние good
             // Когда появится запрос к серверу, костыль setTimeout, можно будет убрать
             setTimeout(() => {
