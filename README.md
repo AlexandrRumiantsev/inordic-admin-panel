@@ -60,3 +60,11 @@
 Поля:
 - name - Название нашего модуля
 - version - версия проекта
+
+
+Плагины: 
+npm install react-redux
+npm install @reduxjs/toolkit 
+npm install redux-logger
+
+https://react-redux.js.org/introduction/getting-started
