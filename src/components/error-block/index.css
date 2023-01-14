@@ -1,0 +1,6 @@
+.error-block{
+    color: red;
+    outline: 1px solid red;
+    background: #2a284f;
+    border-radius: 3px;
+}
